@@ -1,10 +1,15 @@
 {
-  "name": "dilab/resumable.php",
-  "description": "PHP package for Resumable.js",
+  "name": "black-bits/resumable.js-laravel-backend",
+  "description": "Laravel compatible PHP package for Resumable.js",
+  "version": "0.2.0",
   "authors": [
     {
-      "name": "xu ding",
-      "email": "thedilab@gmail.com"
+      "name": "Oliver Heck",
+      "email": "mail@oliverheck.de"
+    },
+    {
+      "name": "Andreas Przywara",
+      "email": "andreas.przywara@gmail.com"
     }
   ],
   "require": {

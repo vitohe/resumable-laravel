@@ -12,11 +12,13 @@ class SimpleResponse implements Response
     public function header($statusCode)
     {
         if (200==$statusCode) {
-            return header("HTTP/1.0 200 Ok");
+            return true;
+        } else if (204==$statusCode) {
+            return false;
         } else if (404==$statusCode) {
-            return header("HTTP/1.0 404 Not Found");
+            return false;
         }
-        return header("HTTP/1.0 404 Not Found");
+        return false;
     }
 
 }

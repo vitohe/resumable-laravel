@@ -42,9 +42,9 @@ class Resumable
     {
         if (!empty($this->resumableParams())) {
             if (!empty($this->request->file())) {
-                $this->handleChunk();
+                return $this->handleChunk();
             } else {
-                $this->handleTestChunk();
+                return $this->handleTestChunk();
             }
         }
     }
@@ -56,7 +56,7 @@ class Resumable
         $chunkNumber = $this->resumableParam('chunkNumber');
 
         if (!$this->isChunkUploaded($identifier, $filename, $chunkNumber)) {
-            return $this->response->header(404);
+            return $this->response->header(204);
         } else {
             return $this->response->header(200);
         }
