@@ -64,14 +64,29 @@ class UploadController extends Controller
         $resumable->uploadFolder    = $uploadPath;
 
 
-        if($resumable->process()) {
-            return response([
-                'message' => 'OK',
-            ], 200);
-        } else {
-            return response([
-                'message' => 'Chunk not found',
-            ], 204);
+        $result = $resumable->process();
+        
+        switch($result) {
+            case 200:
+                return response([
+                    'message' => 'OK',
+                ], 200);
+                break;
+            case 201:
+                // mark uploaded file as complete etc
+                return response([
+                    'message' => 'OK',
+                ], 200);
+                break;
+            case 204:
+                return response([
+                    'message' => 'Chunk not found',
+                ], 204);
+                break;
+            default:
+                return response([
+                    'message' => 'An error occurred',
+                ], 404);
         }
     }
 }
