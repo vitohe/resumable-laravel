@@ -8,7 +8,7 @@ It is currently a work in progress and it is currently developed with Laravel ve
 
 To install, use composer:
 
-``` composer require black-bits/resumable.js-laravel-backend ```
+``` composer require vitohe/resumable-laravel ```
 
 
 ## How to use
