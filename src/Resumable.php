@@ -17,6 +17,8 @@ class Resumable
 
     public $uploadFolder = 'test/files/uploads';
 
+    public $destFile = "";
+
     // for testing
     public $deleteTmpFolder = true;
 
@@ -43,8 +45,6 @@ class Resumable
     {
         if (!empty($this->resumableParams())) {
             if (!empty($this->request->file())) {
-                echo "process file";
-
                 return $this->handleChunk();
             } else {
                 return $this->handleTestChunk();
@@ -98,10 +98,18 @@ class Resumable
     private function createFileAndDeleteTmp($identifier, $filename)
     {
         $tmpFolder = new Folder($this->tmpChunkDir($identifier));
+        $pathinfo = pathinfo($filename);
+
+        $this->destFile = $this->uploadFolder . DIRECTORY_SEPARATOR . md5($identifier . $filename . uniqid()) . "." . $pathinfo["extension"] ?? "";
+
         $chunkFiles = $tmpFolder->read(true, true, true)[1];
-        if ($this->createFileFromChunks($chunkFiles, $this->uploadFolder . DIRECTORY_SEPARATOR . $filename) && $this->deleteTmpFolder) {
+        if ($this->createFileFromChunks($chunkFiles, $this->destFile) && $this->deleteTmpFolder) {
             $tmpFolder->delete();
         }
+    }
+
+    public function getInfo()
+    {
     }
 
     private function resumableParam($shortName)
@@ -164,16 +172,12 @@ class Resumable
 
         natsort($chunkFiles);
 
-        print_r($chunkFiles);
-
         $destFile = new File($destFile, true);
 
         $index = 1;
         foreach ($chunkFiles as $chunkFile) {
             $file = new File($chunkFile);
             $destFile->append($file->read());
-            echo "append " . $index;
-            $index++;
 
             $this->log('Append ', ['chunk file' => $chunkFile]);
         }
