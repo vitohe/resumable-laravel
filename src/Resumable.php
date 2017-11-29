@@ -87,8 +87,6 @@ class Resumable
         }
 
         if ($this->isFileUploadComplete($filename, $identifier, $chunkSize, $totalSize)) {
-            echo "Compelete~~~";
-            var_dump($_POST);
             $this->createFileAndDeleteTmp($identifier, $filename);
 
             return $this->response->header(201);
