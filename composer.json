@@ -1,7 +1,7 @@
 {
   "name": "vitohe/resumable-laravel",
   "description": "Laravel compatible PHP package for Resumable uploads",
-  "version": "0.2.2",
+  "version": "0.3.1",
   "authors": [
     {
       "name": "Oliver Heck",
